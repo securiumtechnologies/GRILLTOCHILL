@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-display {
+    font-family: 'Cinzel', serif;
+  }
+  .font-serif-accent {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-serif {
+    font-family: 'Cormorant Garamond', 'Cinzel', serif;
+  }
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Smooth custom scrollbar for Clean Minimalism dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0C0C0C;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D94A38;
+}
+
+/* Ember glow & gradient utilities */
+.ember-glow {
+  box-shadow: 0 0 35px -5px rgba(217, 74, 56, 0.25);
+}
+
+.ember-gradient-text {
+  background: linear-gradient(135deg, #F5F2ED 30%, #D94A38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+

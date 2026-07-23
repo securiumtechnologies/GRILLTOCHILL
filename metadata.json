@@ -1,0 +1,6 @@
+{
+  "name": "Grill to Chill",
+  "description": "Premium modern Indian restaurant in Uttarpara featuring charcoal-grilled delicacies, rich curries, dine-in, takeaway, and no-contact delivery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
