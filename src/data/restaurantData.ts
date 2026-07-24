@@ -1,8 +1,70 @@
 import { BusinessFacts, MenuItem, InstagramPost } from '../types';
 import heroDishImage from '../assets/images/grill_hero_dish_1784835251056.jpg';
 import ambianceImage from '../assets/images/grill_ambiance_1784835263227.jpg';
+import tandooriPlatterImage from '../assets/images/tandoori_platter_1784862307892.jpg';
+import royalBiryaniImage from '../assets/images/royal_biryani_1784862321300.jpg';
 
-export { heroDishImage, ambianceImage };
+export { heroDishImage, ambianceImage, tandooriPlatterImage, royalBiryaniImage };
+
+export interface FoodPhoto {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  imageUrl: string;
+  tag: string;
+}
+
+export const FOOD_PHOTOGRAPHS: FoodPhoto[] = [
+  {
+    id: "fp-1",
+    title: "Smoky Charcoal Tandoori Platter",
+    category: "Tandoori Special",
+    description: "Bone-in chicken & kebabs marinated in Kashmiri chili and curd, roasted live on high-heat charcoal tandoor.",
+    imageUrl: tandooriPlatterImage,
+    tag: "Chef Signature"
+  },
+  {
+    id: "fp-2",
+    title: "Aromatic Dum Biryani Handi",
+    category: "Biryani & Rice",
+    description: "Long-grain Basmati rice layered with marinated meat, saffron milk, caramelized onions & slow-cooked in dum style.",
+    imageUrl: royalBiryaniImage,
+    tag: "Crowd Favorite"
+  },
+  {
+    id: "fp-3",
+    title: "Sizzling Paneer Tikka Shashlik",
+    category: "Vegetarian Grill",
+    description: "Cubes of fresh cottage cheese, colorful bell peppers & onions spiced with mustard oil & charred over clay coals.",
+    imageUrl: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=800&auto=format&fit=crop",
+    tag: "Vegetarian"
+  },
+  {
+    id: "fp-4",
+    title: "Velvety Butter Chicken & Garlic Naan",
+    category: "Rich Curries",
+    description: "Tandoori chicken simmered in a silky tomato butter cream sauce paired with piping-hot garlic butter naan.",
+    imageUrl: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?q=80&w=800&auto=format&fit=crop",
+    tag: "House Special"
+  },
+  {
+    id: "fp-5",
+    title: "Chicken Reshmi & Malai Kebabs",
+    category: "Silky Kebabs",
+    description: "Melt-in-mouth chicken chunks coated in cashew cream, white pepper, and roasted cardamom glaze.",
+    imageUrl: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=800&auto=format&fit=crop",
+    tag: "Melt-in-Mouth"
+  },
+  {
+    id: "fp-6",
+    title: "Charred Mutton Seekh Kebab",
+    category: "Specialty Grill",
+    description: "Spiced minced mutton skewered and roasted to perfection with fresh mint coriander chutney.",
+    imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop",
+    tag: "Gourmet Grill"
+  }
+];
 
 export const BUSINESS_FACTS: BusinessFacts = {
   name: "Grill to Chill",
@@ -34,7 +96,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Bone-in chicken marinated in yogurt, Kashmiri red chili, and fresh spices, flame-roasted in clay oven.",
     tags: ["Signature", "Charcoal Grill"],
     isFeatured: true,
-    image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800&auto=format&fit=crop"
+    image: tandooriPlatterImage
   },
   {
     id: "nv-2",
@@ -76,7 +138,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Tandoori & Starters",
     description: "Plump drumsticks marinated in rich spice blend and slow-roasted for a smoky glaze.",
-    tags: ["Popular"]
+    tags: ["Popular"],
+    image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "nv-6",
@@ -85,7 +148,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Tandoori & Starters",
     description: "Fresh fish fillets seasoned with carom seeds (ajwain), lemon juice, and roasted spice marinade.",
-    tags: ["Seafood"]
+    tags: ["Seafood"],
+    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800&auto=format&fit=crop"
   },
 
   // --- NON-VEG FOOD (Main Course) ---
@@ -118,7 +182,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Main Course",
     description: "Succulent chicken cooked with crushed coriander seeds, capsicum, onions, and spicy kadhai masala.",
-    tags: ["Spiced"]
+    tags: ["Spiced"],
+    image: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "nv-mc-4",
@@ -127,7 +192,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Main Course",
     description: "Tender mutton chunks slow-cooked in a traditional aromatic gravy infused with Kashmiri chili and fennel.",
-    tags: ["Rich & Classic"]
+    tags: ["Rich & Classic"],
+    image: "https://images.unsplash.com/photo-1545247181-516773cae754?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "nv-mc-5",
@@ -136,7 +202,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Main Course",
     description: "Chicken braised with caramelized and diced onions in a fragrant whole-spice gravy.",
-    tags: ["Traditional"]
+    tags: ["Traditional"],
+    image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop"
   },
 
   // --- VEG FOOD (Tandoori & Starters) ---
@@ -158,7 +225,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Tandoori & Starters",
     description: "Silken paneer cubes coated in rich cream, green cardamom, and mild white pepper marinade.",
-    tags: ["Creamy & Mild"]
+    tags: ["Creamy & Mild"],
+    image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "v-3",
@@ -167,7 +235,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Tandoori & Starters",
     description: "Scooped potatoes stuffed with dry fruits, paneer, and crushed spices, flame-roasted in the tandoor.",
-    tags: ["Classic"]
+    tags: ["Classic"],
+    image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "v-4",
@@ -176,7 +245,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Tandoori & Starters",
     description: "Finely chopped garden vegetables, sweet corn, and cottage cheese skewered over live charcoal.",
-    tags: ["Healthy Grill"]
+    tags: ["Healthy Grill"],
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "v-5",
@@ -185,7 +255,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Tandoori & Starters",
     description: "Button mushrooms marinated in spicy hung curd and clay oven roasted.",
-    tags: ["Juicy"]
+    tags: ["Juicy"],
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
   },
 
   // --- VEG FOOD (Main Course) ---
@@ -196,7 +267,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Main Course",
     description: "Fresh paneer cooked in a rich, buttery, cream-topped tomato gravy.",
-    tags: ["Customer Favorite"]
+    tags: ["Customer Favorite"],
+    image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "v-mc-2",
@@ -216,7 +288,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Main Course",
     description: "Paneer tossed with crunchy bell peppers and fresh ground kadai spices.",
-    tags: ["Robust Spice"]
+    tags: ["Robust Spice"],
+    image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "v-mc-4",
@@ -225,7 +298,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Main Course",
     description: "Assorted seasonal vegetables simmered in a rich cashew-based gravy.",
-    tags: ["Mild"]
+    tags: ["Mild"],
+    image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop"
   },
 
   // --- BREADS & BIRYANI ---
@@ -236,7 +310,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Breads & Rice",
     description: "Clay oven leavened bread brushed generously with garlic butter and fresh cilantro.",
-    tags: ["Tandoori Bread"]
+    tags: ["Tandoori Bread"],
+    image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "br-2",
@@ -245,7 +320,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Breads & Rice",
     description: "Soft, fluffy tandoori naan baked against hot clay walls.",
-    tags: ["Tandoori Bread"]
+    tags: ["Tandoori Bread"],
+    image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "br-3",
@@ -254,7 +330,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Breads & Rice",
     description: "Multi-layered flaky whole wheat bread baked in tandoor.",
-    tags: ["Flaky"]
+    tags: ["Flaky"],
+    image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "br-4",
@@ -265,7 +342,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "Long grain Basmati rice layered with marinated chicken, boiled egg, potato, saffron, and ghee, cooked on Dum.",
     tags: ["Signature Biryani"],
     isFeatured: true,
-    image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop"
+    image: royalBiryaniImage
   },
   {
     id: "br-5",
@@ -274,7 +351,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "non-veg",
     subCategory: "Breads & Rice",
     description: "Aromatic Basmati rice slow-cooked with tender mutton pieces, Kolkata-style potato, and secret whole spices.",
-    tags: ["Royal Feast"]
+    tags: ["Royal Feast"],
+    image: royalBiryaniImage
   },
   {
     id: "br-6",
@@ -283,7 +361,8 @@ export const MENU_ITEMS: MenuItem[] = [
     foodType: "veg",
     subCategory: "Breads & Rice",
     description: "Fragrant rice layered with fresh garden vegetables, paneer cubes, and aromatic saffron.",
-    tags: ["Aromatic Veg"]
+    tags: ["Aromatic Veg"],
+    image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop"
   },
 
   // --- BEVERAGES ---
@@ -293,7 +372,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Mocktails & Coolers",
     description: "Refreshing crushed mint leaves, fresh lime juice, and sparkling soda served over crushed ice.",
-    tags: ["Refreshing Chill"]
+    tags: ["Refreshing Chill"],
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "bev-2",
@@ -301,7 +381,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Traditional Drinks",
     description: "Thick creamy yogurt drink served in authentic clay kulhad, topped with malai and cardamom.",
-    tags: ["Cooling Classic"]
+    tags: ["Cooling Classic"],
+    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "bev-3",
@@ -309,7 +390,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Mocktails & Coolers",
     description: "Zesty lemon drink customizable with sweet, salted, or mixed flavors.",
-    tags: ["Thirst Quencher"]
+    tags: ["Thirst Quencher"],
+    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "bev-4",
@@ -317,7 +399,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Shakes & Coffees",
     description: "Rich espresso blended with chilled milk, topped with a velvety scoop of vanilla ice cream.",
-    tags: ["Creamy Chill"]
+    tags: ["Creamy Chill"],
+    image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "bev-5",
@@ -325,7 +408,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Traditional Drinks",
     description: "Steaming aromatic tea infused with ginger, cardamom, and clove, served in earthen clay cups.",
-    tags: ["Earthy Flavor"]
+    tags: ["Earthy Flavor"],
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=800&auto=format&fit=crop"
   },
   {
     id: "bev-6",
@@ -333,7 +417,8 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "beverages",
     subCategory: "Shakes & Coffees",
     description: "Decadent dark chocolate shake topped with chocolate drizzle.",
-    tags: ["Dessert Shake"]
+    tags: ["Dessert Shake"],
+    image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800&auto=format&fit=crop"
   }
 ];
 

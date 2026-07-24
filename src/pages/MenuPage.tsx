@@ -11,7 +11,9 @@ import {
   Leaf,
   Drumstick,
   Sparkles,
-  Info
+  Info,
+  Maximize2,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -31,6 +33,21 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
 
   // Sub-category filter option (e.g. "All", "Tandoori & Starters", "Main Course", "Breads & Rice")
   const [selectedSubCat, setSelectedSubCat] = useState<string>('all');
+
+  // Lightbox Modal for Food Photo
+  const [activePhotoModal, setActivePhotoModal] = useState<MenuItem | null>(null);
+
+  // Helper to resolve dish image or fallback
+  const getDishImage = (item: MenuItem): string => {
+    if (item.image) return item.image;
+    if (item.category === 'beverages') {
+      return "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800&auto=format&fit=crop";
+    }
+    if (item.foodType === 'veg') {
+      return "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=800&auto=format&fit=crop";
+    }
+    return "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=800&auto=format&fit=crop";
+  };
 
   // Filter menu items dynamically
   const filteredItems = useMemo(() => {
@@ -87,7 +104,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
 
           <div className="pt-2 flex items-center justify-center gap-2 text-xs text-[#F5F2ED]/50 font-sans">
             <Info className="w-3.5 h-3.5 text-[#D94A38]" />
-            <span>Dishes displayed with descriptions. Complete pricing available on Zomato or in-house menu.</span>
+            <span>Click any food photograph to expand high-resolution view. Complete pricing on Zomato or in-house menu.</span>
           </div>
         </div>
       </section>
@@ -129,7 +146,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
               }`}
             >
               <Utensils className="w-4 h-4" />
-              <span>Food</span>
+              <span>Food Menu</span>
             </button>
 
             <button
@@ -145,7 +162,7 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
               }`}
             >
               <Coffee className="w-4 h-4" />
-              <span>Beverages</span>
+              <span>Beverages Menu</span>
             </button>
           </div>
         </div>
@@ -244,74 +261,110 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredItems.map((item) => (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-[#0C0C0C] border border-white/10 p-6 hover:border-[#D94A38] transition-all duration-200 flex flex-col justify-between group"
-                >
-                  <div className="space-y-3">
-                    {/* Header line with badge and subcategory */}
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold text-[#D94A38] uppercase tracking-widest">
-                        {item.subCategory}
-                      </span>
-                      {item.foodType && (
-                        <span
-                          className={`text-[10px] font-bold px-2 py-0.5 border ${
-                            item.foodType === 'veg'
-                              ? 'bg-emerald-950/80 text-emerald-400 border-emerald-800'
-                              : 'bg-rose-950/80 text-rose-400 border-rose-800'
-                          }`}
-                        >
-                          {item.foodType === 'veg' ? '● VEG' : '▲ NON-VEG'}
-                        </span>
-                      )}
+              {filteredItems.map((item) => {
+                const dishImg = getDishImage(item);
+                return (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                    className="bg-[#0C0C0C] border border-white/10 overflow-hidden hover:border-[#D94A38] transition-all duration-300 flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* Food Photograph Frame */}
+                      <div
+                        onClick={() => setActivePhotoModal(item)}
+                        className="relative aspect-[16/10] bg-[#151515] overflow-hidden cursor-pointer group/img"
+                      >
+                        <img
+                          src={dishImg}
+                          alt={item.name}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover group-hover/img:scale-108 transition-transform duration-500 ease-out filter brightness-95 group-hover/img:brightness-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover/img:opacity-40 transition-opacity" />
+
+                        {/* Food Type Badge */}
+                        {item.foodType && (
+                          <div className="absolute top-3 left-3">
+                            <span
+                              className={`text-[9px] font-bold px-2 py-1 border backdrop-blur-md uppercase tracking-wider ${
+                                item.foodType === 'veg'
+                                  ? 'bg-emerald-950/90 text-emerald-300 border-emerald-700'
+                                  : 'bg-rose-950/90 text-rose-300 border-rose-700'
+                              }`}
+                            >
+                              {item.foodType === 'veg' ? '● VEG' : '▲ NON-VEG'}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Lightbox Trigger Icon */}
+                        <div className="absolute top-3 right-3 w-7 h-7 bg-black/60 border border-white/20 flex items-center justify-center text-white opacity-0 group-hover/img:opacity-100 transition-opacity">
+                          <Maximize2 className="w-3.5 h-3.5 text-[#D94A38]" />
+                        </div>
+
+                        {/* Subcategory Label on Image Bottom */}
+                        <div className="absolute bottom-2 left-3">
+                          <span className="text-[10px] font-bold text-[#D94A38] uppercase tracking-widest bg-black/70 px-2 py-0.5 border border-white/10">
+                            {item.subCategory}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="p-6 space-y-3">
+                        {/* Dish Name */}
+                        <h3 className="font-serif text-2xl font-normal text-[#F5F2ED] group-hover:text-[#D94A38] transition-colors">
+                          {item.name}
+                        </h3>
+
+                        {/* Description */}
+                        {item.description && (
+                          <p className="text-xs text-[#F5F2ED]/60 leading-relaxed font-sans">
+                            {item.description}
+                          </p>
+                        )}
+
+                        {/* Tags */}
+                        {item.tags && item.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {item.tags.map((tag, i) => (
+                              <span
+                                key={i}
+                                className="text-[10px] px-2 py-0.5 border border-white/10 text-[#F5F2ED]/60 font-mono"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Dish Name Only - NO PRICES */}
-                    <h3 className="font-serif text-2xl font-normal text-[#F5F2ED] group-hover:text-[#D94A38] transition-colors">
-                      {item.name}
-                    </h3>
+                    {/* Card Footer Action */}
+                    <div className="px-6 pb-6 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                      <button
+                        onClick={() => setActivePhotoModal(item)}
+                        className="text-[10px] text-[#F5F2ED]/50 hover:text-[#F5F2ED] uppercase tracking-widest flex items-center gap-1"
+                      >
+                        <Maximize2 className="w-3 h-3 text-[#D94A38]" />
+                        <span>View Photo</span>
+                      </button>
 
-                    {/* Description */}
-                    {item.description && (
-                      <p className="text-xs text-[#F5F2ED]/60 leading-relaxed font-sans">
-                        {item.description}
-                      </p>
-                    )}
-
-                    {/* Tags */}
-                    {item.tags && item.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {item.tags.map((tag, i) => (
-                          <span
-                            key={i}
-                            className="text-[10px] px-2 py-0.5 border border-white/10 text-[#F5F2ED]/60 font-mono"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Footer button */}
-                  <div className="pt-4 mt-6 border-t border-white/10 flex items-center justify-between text-xs">
-                    <span className="text-[10px] text-[#F5F2ED]/40 uppercase tracking-widest">Grill to Chill Specialty</span>
-                    <button
-                      onClick={onOpenOrderModal}
-                      className="text-[#D94A38] hover:underline font-bold text-xs uppercase tracking-widest flex items-center gap-1"
-                    >
-                      <span>Order Item →</span>
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
+                      <button
+                        onClick={onOpenOrderModal}
+                        className="text-[#D94A38] hover:underline font-bold text-xs uppercase tracking-widest flex items-center gap-1"
+                      >
+                        <span>Order Item →</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -337,6 +390,87 @@ export const MenuPage: React.FC<MenuPageProps> = ({ onOpenOrderModal }) => {
           </div>
         </div>
       </div>
+
+      {/* Lightbox / High-Res View Modal for Menu Item */}
+      <AnimatePresence>
+        {activePhotoModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative max-w-2xl w-full bg-[#0C0C0C] border border-white/20 overflow-hidden shadow-2xl space-y-0"
+            >
+              {/* Modal Close Button */}
+              <button
+                onClick={() => setActivePhotoModal(null)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/70 border border-white/20 flex items-center justify-center text-white hover:border-[#D94A38] hover:text-[#D94A38] transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Large Image Frame */}
+              <div className="relative aspect-[16/10] bg-[#151515] overflow-hidden">
+                <img
+                  src={getDishImage(activePhotoModal)}
+                  alt={activePhotoModal.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Modal Content Footer */}
+              <div className="p-6 sm:p-8 space-y-4 border-t border-white/10">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="px-3 py-1 border border-[#D94A38] text-xs font-bold uppercase tracking-widest text-[#D94A38]">
+                    {activePhotoModal.subCategory}
+                  </span>
+                  {activePhotoModal.foodType && (
+                    <span
+                      className={`text-[10px] font-bold px-2.5 py-1 border uppercase tracking-wider ${
+                        activePhotoModal.foodType === 'veg'
+                          ? 'bg-emerald-950 text-emerald-300 border-emerald-800'
+                          : 'bg-rose-950 text-rose-300 border-rose-800'
+                      }`}
+                    >
+                      {activePhotoModal.foodType === 'veg' ? '● VEG' : '▲ NON-VEG'}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#F5F2ED]">
+                  {activePhotoModal.name}
+                </h3>
+
+                {activePhotoModal.description && (
+                  <p className="text-xs sm:text-sm text-[#F5F2ED]/70 font-sans leading-relaxed">
+                    {activePhotoModal.description}
+                  </p>
+                )}
+
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <span className="text-xs font-sans text-[#F5F2ED]/50 uppercase tracking-widest">
+                    Grill to Chill • GT Road Uttarpara
+                  </span>
+
+                  <button
+                    onClick={() => {
+                      setActivePhotoModal(null);
+                      onOpenOrderModal();
+                    }}
+                    className="w-full sm:w-auto px-6 py-3 bg-[#D94A38] hover:bg-[#b83828] text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Order Online</span>
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
+

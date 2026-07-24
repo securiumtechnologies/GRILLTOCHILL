@@ -2,6 +2,7 @@ import React from 'react';
 import { NavPage } from '../types';
 import { BUSINESS_FACTS, MENU_ITEMS, heroDishImage } from '../data/restaurantData';
 import { InstagramGrid } from '../components/InstagramGrid';
+import { FoodPhotoGallery } from '../components/FoodPhotoGallery';
 import {
   Flame,
   Star,
@@ -169,6 +170,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenOrderModal
           </p>
         </div>
       </section>
+
+      {/* 2.5 FOOD PHOTOGRAPHS GALLERY */}
+      <FoodPhotoGallery
+        onOpenOrderModal={onOpenOrderModal}
+        onNavigateToMenu={() => onNavigate('menu')}
+      />
 
       {/* 3. WHY US / HIGHLIGHTS CARDS */}
       <section className="py-24 bg-[#0C0C0C]">
